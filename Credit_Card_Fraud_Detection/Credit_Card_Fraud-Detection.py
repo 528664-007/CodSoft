@@ -25,7 +25,7 @@ def benchmark(stage_name):
             start_time = time.time()
             start_mem = psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2
             
-            print(f"\n⏳ Starting {stage_name}...")
+            print(f"\nStarting {stage_name}...")
             result = func(*args, **kwargs)
             
             end_time = time.time()
@@ -39,7 +39,7 @@ def benchmark(stage_name):
                 'memory_mb': round(mem_used, 2)
             }
             
-            print(f"✅ Completed {stage_name} in {elapsed:.2f}s (ΔMemory: {mem_used:+.2f}MB)")
+            print(f"Completed {stage_name} in {elapsed:.2f}s (ΔMemory: {mem_used:+.2f}MB)")
             return result
         return wrapper
     return decorator
@@ -133,8 +133,8 @@ def plot_enhanced_feature_importance(model, feature_names, top_n=15):
 @benchmark("Data Loading")
 def load_data(path):
     df = pd.read_csv(path)
-    print(f"\n📊 Dataset Dimensions: {df.shape[0]:,} rows × {df.shape[1]} columns")
-    print("🔍 Class Distribution:")
+    print(f"\n Dataset Dimensions: {df.shape[0]:,} rows × {df.shape[1]} columns")
+    print("Class Distribution:")
     print(df['Class'].value_counts(normalize=True).apply(lambda x: f"{x:.4%}"))
     return df
 
@@ -151,8 +151,8 @@ def engineer_features(df):
     df['V3_V4'] = df['V3'] * df['V4']
     df = df.drop(['Time', 'Amount'], axis=1)
     
-    print(f"➕ Added {df.shape[1] - initial_cols} new features")
-    print(f"📉 Reduced to {df.shape[1]} total features")
+    print(f"Added {df.shape[1] - initial_cols} new features")
+    print(f"Reduced to {df.shape[1]} total features")
     return df
 
 df = engineer_features(df)
@@ -165,8 +165,8 @@ def split_data(df):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y)
     
-    print(f"\n✂️ Split Ratio: {len(X_train):,} train / {len(X_test):,} test samples")
-    print("📌 Class Balance in Test Set:")
+    print(f"\n Split Ratio: {len(X_train):,} train / {len(X_test):,} test samples")
+    print("Class Balance in Test Set:")
     print(y_test.value_counts(normalize=True).apply(lambda x: f"{x:.4%}"))
     return X, X_train, X_test, y_train, y_test
 
@@ -179,9 +179,9 @@ def resample_data(X_train, y_train):
     smote = SMOTE(sampling_strategy=0.3, random_state=42, k_neighbors=5)
     X_res, y_res = smote.fit_resample(X_train, y_train)
     
-    print("\n⚖️ Before Resampling:")
+    print("\n Before Resampling:")
     print(before_count.apply(lambda x: f"{x:,}"))
-    print("\n⚖️ After Resampling:")
+    print("\n After Resampling:")
     print(pd.Series(y_res).value_counts().apply(lambda x: f"{x:,}"))
     return X_res, y_res
 
@@ -227,7 +227,7 @@ for name, model in models.items():
     y_pred = model.predict(X_test)
     y_proba = model.predict_proba(X_test)[:, 1]
     
-    print(f"\n📊 {name} Performance:")
+    print(f"\n {name} Performance:")
     print(classification_report(y_test, y_pred))
     
     results[name] = {
@@ -251,14 +251,14 @@ def train_ensemble(X, y):
     ensemble.fit(X, y)
     return ensemble
 
-print("\n🚀 Creating optimized ensemble...")
+print("\n Creating optimized ensemble...")
 ensemble = train_ensemble(X_train_res, y_train_res)
 
 # Final evaluation
 y_pred = ensemble.predict(X_test)
 y_proba = ensemble.predict_proba(X_test)[:, 1]
 
-print("\n🏆 FINAL ENSEMBLE PERFORMANCE:")
+print("\n FINAL ENSEMBLE PERFORMANCE:")
 print(classification_report(y_test, y_pred))
 print(f"ROC-AUC: {roc_auc_score(y_test, y_proba):.4f}")
 print(f"PR-AUC: {average_precision_score(y_test, y_proba):.4f}")
@@ -273,10 +273,10 @@ def save_model(model, path):
     joblib.dump(model, path)
 
 save_model(ensemble, 'optimized_fraud_model.pkl')
-print("\n💾 Production model saved as 'optimized_fraud_model.pkl'")
+print("\n Production model saved as 'optimized_fraud_model.pkl'")
 
 # === Performance Benchmark Report ===
-print("\n📊 PRECISE PERFORMANCE BENCHMARKS:")
+print("\n PRECISE PERFORMANCE BENCHMARKS:")
 print("┌──────────────────────────────┬────────────┬─────────────┐")
 print("│ Stage                        │ Time (sec) │ Memory (MB) │")
 print("├──────────────────────────────┼────────────┼─────────────┤")
@@ -291,6 +291,6 @@ print("└───────────────────────�
 total_time = sum(m['time_sec'] for m in benchmark.results.values())
 peak_mem = max(m['memory_mb'] for m in benchmark.results.values())
 
-print(f"\n⏱️ Total Execution Time: {total_time:.2f} seconds")
-print(f"💾 Peak Memory Usage: {peak_mem:.2f} MB")
-print(f"🏆 Best Model ROC-AUC: {results[max(results, key=lambda x: results[x]['ROC-AUC'])]['ROC-AUC']:.4f}")
+print(f"\n Total Execution Time: {total_time:.2f} seconds")
+print(f" Peak Memory Usage: {peak_mem:.2f} MB")
+print(f" Best Model ROC-AUC: {results[max(results, key=lambda x: results[x]['ROC-AUC'])]['ROC-AUC']:.4f}")
