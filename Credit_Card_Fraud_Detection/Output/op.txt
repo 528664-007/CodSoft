@@ -1,0 +1,125 @@
+
+Starting Data Loading...
+
+Dataset Dimensions: 284,807 rows × 31 columns
+Class Distribution:
+Class
+0    99.8273%
+1     0.1727%
+Name: proportion, dtype: object
+Completed Data Loading in 1.69s (ΔMemory: +108.99MB)
+
+Starting Feature Engineering...
+Added 2 new features
+Reduced to 33 total features
+Completed Feature Engineering in 0.08s (ΔMemory: +80.45MB)
+
+Starting Data Splitting...
+
+Split Ratio: 227,845 train / 56,962 test samples
+Class Balance in Test Set:
+Class
+0    99.8280%
+1     0.1720%
+Name: proportion, dtype: object
+Completed Data Splitting in 0.27s (ΔMemory: +109.54MB)
+
+Starting Data Resampling...
+
+Before Resampling:
+Class
+0    227,451
+1        394
+Name: count, dtype: object
+
+After Resampling:
+Class
+0    227,451
+1     68,235
+Name: count, dtype: object
+Completed Data Resampling in 2.08s (ΔMemory: +77.85MB)
+
+Training XGBoost (Fast) Model...
+
+Starting XGBoost (Fast) Training...
+Completed XGBoost (Fast) Training in 2.33s (ΔMemory: +128.39MB)
+
+XGBoost (Fast) Performance:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     56864
+           1       0.30      0.90      0.45        98
+
+    accuracy                           1.00     56962
+   macro avg       0.65      0.95      0.72     56962
+weighted avg       1.00      1.00      1.00     56962
+
+
+Training LightGBM (Fast) Model...
+
+Starting LightGBM (Fast) Training...
+[LightGBM] [Warning] Found boosting=goss. For backwards compatibility reasons, LightGBM interprets this as boosting=gbdt, data_sample_strategy=goss.To suppress this warning, set data_sample_strategy=goss instead.
+[LightGBM] [Warning] Found boosting=goss. For backwards compatibility reasons, LightGBM interprets this as boosting=gbdt, data_sample_strategy=goss.To suppress this warning, set data_sample_strategy=goss instead.
+[LightGBM] [Info] Number of positive: 68235, number of negative: 227451
+[LightGBM] [Info] Auto-choosing col-wise multi-threading, the overhead of testing was 0.020996 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 8160
+[LightGBM] [Info] Number of data points in the train set: 295686, number of used features: 32
+[LightGBM] [Info] Using GOSS
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.500000 -> initscore=-0.000000
+[LightGBM] [Info] Start training from score -0.000000
+Completed LightGBM (Fast) Training in 1.69s (ΔMemory: +39.27MB)
+[LightGBM] [Warning] Found boosting=goss. For backwards compatibility reasons, LightGBM interprets this as boosting=gbdt, data_sample_strategy=goss.To suppress this warning, set data_sample_strategy=goss instead.
+[LightGBM] [Warning] Found boosting=goss. For backwards compatibility reasons, LightGBM interprets this as boosting=gbdt, data_sample_strategy=goss.To suppress this warning, set data_sample_strategy=goss instead.
+
+LightGBM (Fast) Performance:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     56864
+           1       0.28      0.91      0.43        98
+
+    accuracy                           1.00     56962
+   macro avg       0.64      0.95      0.71     56962
+weighted avg       1.00      1.00      1.00     56962
+
+
+ Creating optimized ensemble...
+
+Starting Final Ensemble Training...
+Completed Final Ensemble Training in 2.80s (ΔMemory: +18.18MB)
+
+FINAL ENSEMBLE PERFORMANCE:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     56864
+           1       0.81      0.86      0.83        98
+
+    accuracy                           1.00     56962
+   macro avg       0.90      0.93      0.92     56962
+weighted avg       1.00      1.00      1.00     56962
+
+ROC-AUC: 0.9812
+PR-AUC: 0.8774
+
+Starting Model Saving...
+Completed Model Saving in 0.04s (ΔMemory: +5.04MB)
+
+Production model saved as 'optimized_fraud_model.pkl'
+
+PRECISE PERFORMANCE BENCHMARKS:
+┌──────────────────────────────┬────────────┬─────────────┐
+│ Stage                        │ Time (sec) │ Memory (MB) │
+├──────────────────────────────┼────────────┼─────────────┤
+│ Data Loading             │       1.69 │      108.99 │
+│ Feature Engineering      │       0.08 │       80.45 │
+│ Data Splitting           │       0.27 │      109.54 │
+│ Data Resampling          │       2.08 │       77.85 │
+│ XGBoost (Fast) Training  │       2.33 │      128.39 │
+│ LightGBM (Fast) Training │       1.69 │       39.27 │
+│ Final Ensemble Training  │       2.80 │       18.18 │
+│ Model Saving             │       0.04 │        5.04 │
+└──────────────────────────────┴────────────┴─────────────┘
+
+Total Execution Time: 10.98 seconds
+Peak Memory Usage: 128.39 MB
+Best Model ROC-AUC: 0.9798
