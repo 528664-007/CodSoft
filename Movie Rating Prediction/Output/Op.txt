@@ -1,0 +1,48 @@
+Columns found: ['Name', 'Year', 'Duration', 'Genre', 'Rating', 'Votes', 'Director', 'Actor 1', 'Actor 2', 'Actor 3']
+d:\Coding\CODSOFT\Movie Rating Prediction\Movie_prediction.py:152: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.  
+
+  sns.barplot(x=top_genres.values, y=top_genres.index, palette='magma')
+d:\Coding\CODSOFT\Movie Rating Prediction\Movie_prediction.py:162: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.  
+
+  sns.barplot(x=avg_ratings.values, y=avg_ratings.index, palette='coolwarm')
+
+Model Performance:
+Root Mean Squared Error (RMSE): 0.8814
+R-squared (R2) Score: 0.2011
+d:\Coding\CODSOFT\Movie Rating Prediction\Movie_prediction.py:208: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.  
+
+  sns.barplot(x=model.feature_importances_, y=features, palette='viridis', orient='h')
+
+Sample Predictions:
+       Duration   Votes  Genre  Director  Actor 1  Actor 2  Actor 3  Actual Rating  Predicted Rating
+11115     131.0    55.0    331      3243     4388     4558     4481            6.0          6.006961
+2921      123.0    15.0    299      3771     2510     3421     4727            6.8          6.544596
+3463      131.0    55.0    484        19     4388     4558     4481            6.0          5.999855
+2495      131.0    55.0    484      1061      847      921     4457            6.0          5.999719
+15263     131.0    55.0    479      5549     4388     4558     4481            6.0          5.999855
+11165     140.0  3023.0    228      2123     2979      424     4456            4.6          5.806260
+8371      141.0  2513.0      5      5093     2402     3720     1436            4.8          5.481184
+6929      131.0     9.0      0      3728     2163      552     1161            5.3          4.668778
+4246      166.0    31.0    299      4867     3790     1844     4667            6.9          6.225287
+3312      131.0    55.0    484      1741     3936     2476     3901            6.0          5.999830
+14753     136.0     7.0    299       621     4578     3395     2507            7.4          6.223477
+6613      131.0    55.0    460      5549     4388     4558     4481            6.0          5.999855
+2360      131.0    22.0    181      2820      642      495     2170            4.5          5.845822
+11058     113.0    55.0    365      4368      883      323     3323            6.0          5.980094
+1606      131.0    55.0    484      4037     4175     3401     1234            6.0          5.999830
+9045      131.0    55.0    299      1007       59     4625     1505            6.0          6.001340
+3369      131.0    55.0      0      2449      990     3087     4037            6.0          5.999716
+1254      169.0  1722.0    354      4831     3140     3930     4198            7.6          6.982721
+8440      162.0  1145.0     40      5502     4163     4433      468            3.5          5.333643
+542       131.0    55.0    409      2943     3245     4320     4421            6.0          5.999827
+10575      60.0    55.0    479       685      628     4009     1212            6.0          6.006085
+7474      131.0    55.0    484      2366     1794      852     2640            6.0          5.999552
+15251     131.0    55.0      0      2661     2740     2408     2806            6.0          5.999774
+12976     131.0    55.0    484      2371     2115     1293     1732            6.0          5.999552
+6345       98.0   715.0    203      4458      321      462     4094            7.5          5.192139
