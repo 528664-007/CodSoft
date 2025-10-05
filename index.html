@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #1f2631;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --border: #e5e7eb;
+      --table-header: #f3f4f6;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+    .container { max-width: 980px; margin: 24px auto; padding: 0 16px; }
+    h1 { margin: 0 0 16px; font-size: 1.75rem; }
+    h2 { margin: 0 0 12px; font-size: 1.125rem; }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+
+    form label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: var(--muted); }
+    input[type="text"], input[type="date"], input[type="number"], select { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; color: var(--text); background: #fff; }
+    .grid { display: grid; gap: 12px; grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    @media (min-width: 700px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .full { margin-top: 8px; }
+    .actions { margin-top: 10px; }
+    button { appearance: none; border: none; background: var(--primary); color: #fff; padding: 10px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    button:hover { filter: brightness(1.05); }
+
+    .totals { display: grid; gap: 8px; }
+    .totals strong { color: var(--text); }
+    #category-totals { list-style: none; padding: 0; margin: 6px 0 0; }
+    #category-totals li { padding: 4px 0; color: var(--muted); }
+
+    .table-wrapper { overflow: auto; }
+    table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    thead { background: var(--table-header); }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th.num, td.num { text-align: right; }
+    tbody tr:hover { background: #fafafa; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Expense Tracker</h1>
+
+    <section class="card">
+      <h2>Add Expense</h2>
+      <form id="expense-form" autocomplete="off">
+        <div class="grid">
+          <label>
+            Amount
+            <input id="amount" name="amount" type="number" min="0.01" step="0.01" required placeholder="0.00" />
+          </label>
+          <label>
+            Category
+            <select id="category" name="category" required>
+              <!-- Populated by JS -->
+            </select>
+          </label>
+          <label>
+            Date
+            <input id="date" name="date" type="date" required />
+          </label>
+        </div>
+        <label class="full">
+          Description
+          <input id="description" name="description" type="text" maxlength="200" placeholder="Optional description" />
+        </label>
+        <div class="actions">
+          <button type="submit">Add Expense</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Filter</h2>
+      <label>
+        Category
+        <select id="category-filter"><!-- Populated by JS --></select>
+      </label>
+    </section>
+
+    <section class="card">
+      <h2>Totals</h2>
+      <div class="totals">
+        <div><strong>Total spending:</strong> <span id="total-amount">$0.00</span></div>
+        <div>
+          <strong>By category:</strong>
+          <ul id="category-totals"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Expenses</h2>
+      <div class="table-wrapper">
+        <table id="expenses-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th class="num">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="expenses-tbody"><!-- Rows rendered by JS --></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
