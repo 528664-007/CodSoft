@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Webpage</title>
+  <meta name="color-scheme" content="light dark" />
+  <meta name="description" content="A minimal, responsive starter page with a theme toggle." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Simple Webpage</h1>
+      <button id="theme-toggle" class="button" type="button" aria-pressed="false">
+        Toggle dark mode
+      </button>
+    </div>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <h2>Welcome!</h2>
+      <p>This is a lightweight starter template. Edit the content to make it yours.</p>
+      <a class="button primary" href="#learn-more">Learn more</a>
+    </section>
+
+    <section id="learn-more" class="card-grid">
+      <article class="card">
+        <h3>Fast</h3>
+        <p>No frameworks, just clean HTML, CSS, and JavaScript.</p>
+      </article>
+      <article class="card">
+        <h3>Accessible</h3>
+        <p>Uses semantic HTML and supports system color schemes.</p>
+      </article>
+      <article class="card">
+        <h3>Customizable</h3>
+        <p>Change styles and content to fit your needs.</p>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Your Name</p>
+    </div>
+  </footer>
+
+  <script src="./script.js" defer></script>
+  <noscript>
+    <style>
+      #theme-toggle { display: none; }
+    </style>
+  </noscript>
+</body>
+</html>
